@@ -27,6 +27,7 @@ export default function Home() {
 
 			if (minuteDiff < 10) {
 				formattedTime = Math.round(minuteDiff) + " min";
+				if (Math.round(minuteDiff) === 0) formattedTime = "nå";
 			}
 
 			return {
