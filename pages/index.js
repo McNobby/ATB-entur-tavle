@@ -31,7 +31,7 @@ useEffect(()=> {
 	return (
 		<div className={styles.mainPage}>
       {stops.map(e=>(
-        <RouteList service={service} routeID={e} limit={10} />
+        <RouteList service={service} routeID={e} limit={10} key={e} />
       ))}
 		</div>
 	)
