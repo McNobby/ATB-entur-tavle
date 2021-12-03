@@ -1,44 +1,43 @@
 import styles from "../styles/Home.module.css";
-import createEnturService from "@entur/sdk";
 import { useEffect, useState } from "react";
 
-export default function RouteList({ service, routeID, display, limit }) {
+export default function RouteList({ service, routeID, limit }) {
 
 	const [data, setData] = useState([]);
-    const [stopName, setStopName] = useState('')
+    const [stopName, setStopName] = useState('');
     
 	const setDepartures = async () => {
 		
 		let departures = await service.getDeparturesFromStopPlace(
 			routeID,
 			{ limit }
-		);  
-		let newData = departures.map(item=>{
+		);
 
+		setData(departures.map(item=>{
+
+			// format time to hh:mm
 			let formattedTime = new Date(item.expectedArrivalTime).toLocaleTimeString(
 				navigator.language, {hour: '2-digit', minute:'2-digit'}
 			);
 
+			// difference between now and bus arrival time
 			let minuteDiff = (
 				new Date(item.expectedArrivalTime).getTime() - Date.now()
 			) / (1000*60);
 
+			// relative arrival time
 			if (minuteDiff < 10) {
 				formattedTime = Math.round(minuteDiff) + " min";
 				if (Math.round(minuteDiff) <= 0) formattedTime = "Nå";
 			}
 
-			// if (item.destinationDisplay.frontText !== display) return;
-
 			return {
 				time: formattedTime,
-				display: (!display && ` - ${item.destinationDisplay.frontText}`),
+				display: item.destinationDisplay.frontText,
 				id: item.serviceJourney.id,
                 quay: item.quay.publicCode
 			}
-		});
-
-		setData(newData);//.filter(e=>e));
+		}));
 	}
 
     const getStopName = async () => {
@@ -51,8 +50,9 @@ export default function RouteList({ service, routeID, display, limit }) {
 	useEffect(()=>{
         getStopName();
 		setDepartures();
+		// update departures per 5 sec
 		let intervalId = setInterval(setDepartures, 5000);
-        
+		// free interval
 		return () => { clearInterval(intervalId) };
 
 	}, []);
@@ -82,7 +82,7 @@ export default function RouteList({ service, routeID, display, limit }) {
 			{data.map(el=>(
                 <div className={styles.time} key={el.id} style={textColor(el.time)} >
 				    <h3 >
-				    	{el.time}{el.display}
+				    	{el.time} - {el.display}
 				    </h3>
                     <p>{el.quay && `(Stopp ${el.quay})`}</p>
                 </div>
