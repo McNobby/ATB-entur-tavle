@@ -10,7 +10,7 @@ export default function Home() {
 	const service = createEnturService({ clientName: 'chaIM-customtavle' });
 
 useEffect(()=> {
-	if(!localStorage.getItem("stops")) { //if there is no saved stops in browser
+	if(!localStorage.getItem("stops")) { //if there is no saved stops in browser get user to define the stops
     let savedStops = []
     for (let i = 0; i < 3; i++) {
       let stop = prompt("sett inn NSR id for stoppplasser (https://stoppested.entur.org/) skriv ferdig om du er ferdig")
