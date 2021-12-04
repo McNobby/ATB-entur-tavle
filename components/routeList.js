@@ -81,17 +81,21 @@ export default function RouteList({ service, routeID, limit }) {
         }
     }
 
-	return (
-		<div className={styles.timeTable}>
-            <h2>{stopName}</h2>
-			{data.map(el=>(
-                <div className={styles.time} key={el.id} style={textColor(el.time)} >
+	const timeList = data.map(el => {
+		return(
+				<div className={styles.time} key={el.id} style={textColor(el.time)} >
 				    <h3 >
 				    	{el.time} - {el.display}
 				    </h3>
                     <p>{el.quay && `(Stopp ${el.quay})`}</p>
                 </div>
-			))}
+			)})
+
+			
+	return (
+		<div className={styles.timeTable}>
+            <h2>{stopName}</h2>
+			{timeList}
 		</div>
 	)
 }
