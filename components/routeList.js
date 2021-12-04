@@ -6,8 +6,10 @@ export default function RouteList({ service, routeID, limit }) {
 	const [data, setData] = useState([]);
     const [stopName, setStopName] = useState('');
     
+	//this function runs every 5 seconds. Is called in the useEffect hook
+	//this function gets time tables for a selected stop by NSR ID
 	const setDepartures = async () => {
-		
+		//fetches from entur api
 		let departures = await service.getDeparturesFromStopPlace(
 			routeID,
 			{ limit }
@@ -30,7 +32,7 @@ export default function RouteList({ service, routeID, limit }) {
 				formattedTime = Math.round(minuteDiff) + " min";
 				if (Math.round(minuteDiff) <= 0) formattedTime = "Nå";
 			}
-
+			//info to set in data state
 			return {
 				time: formattedTime,
 				display: item.destinationDisplay.frontText,
@@ -39,8 +41,10 @@ export default function RouteList({ service, routeID, limit }) {
 			}
 		}));
 	}
-
+	//this runs when the component loads
+	//it gets the stopname of the selected stop by NSR ID
     const getStopName = async () => {
+		//fetches from entur api
         const stopPlace = await service.nsr.getStopPlace(
             routeID,
         )
@@ -57,18 +61,19 @@ export default function RouteList({ service, routeID, limit }) {
 
 	}, []);
 
+	//this function returns a css value making text yellow if its five minutes or less left to arrival
     const textColor = (time) => {
-
+		//if the time starts with nå(norwegian for now) the color should be yellow
         if(time.startsWith('Nå')){
             return(
                 {color:"#ebc354"}
             )
         }
-
+		//this is expected to be true if it says x min left and not just arrival time
         if(time[2] !== 'm'){
             return
         }
-
+		//this checks if its five minutes or less left, indicating that the estimated arrival is soon
         if(parseInt(time[0]) < 6){
             return(
                 {color:"#ebc354"}

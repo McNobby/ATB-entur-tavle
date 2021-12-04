@@ -12,6 +12,7 @@ export default function Home() {
 useEffect(()=> {
 	if(!localStorage.getItem("stops")) { //if there is no saved stops in browser get user to define the stops
     let savedStops = []
+    //temporary for loop function that prompts user to add max 3 stop id's. saves the id's in local storage
     for (let i = 0; i < 3; i++) {
       let stop = prompt("sett inn NSR id for stoppplasser (https://stoppested.entur.org/) skriv ferdig om du er ferdig")
       if(stop.toLowerCase() === 'ferdig'){
