@@ -25,16 +25,7 @@
     inset 0 0 200px #add8e67f;
 }
 
-@media only screen and (orientation: portrait) {
-  .mainPage {
-    flex-direction: column;
-    padding: 0;
-  }
-  .timeTable {
-    margin: 0.5rem;
-    overflow-y: scroll;
-  }
-}
+
 
 .timeTable h2 {
   text-align: center;
@@ -58,4 +49,26 @@
   font-size: 2rem;
   float: right;
   transform: translateY(-50px);
+}
+
+@media only screen and (orientation: portrait) {
+  .mainPage {
+    flex-direction: column;
+    padding: 0;
+    height: 100%;
+  }
+  .timeTable {
+    margin: 0.5rem;
+  }
+  .timeTable h2 {
+    font-size: 2rem;
+  }
+  .timeTable h3 {
+    font-size: 2rem;
+  }
+  .time p {
+    font-size: 1rem;
+   transform: translateY(-10px);
+
+  }
 }
