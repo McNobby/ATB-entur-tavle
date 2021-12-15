@@ -1,4 +1,4 @@
-import styles from "../styles/Home.module.css";
+import styles from "../styles/Home.module.scss";
 import createEnturService from "@entur/sdk";
 import { useEffect, useState } from "react";
 import RouteList from "../components/RouteList";
