@@ -27,12 +27,13 @@ export default function RouteList({ service, routeID, limit }) {
 				new Date(item.expectedArrivalTime).getTime() - Date.now()
 			) / (1000*60);
 
-			// relative arrival time
+			// if arrival time is under 10 minutes, show remaining time in minutes
 			if (minuteDiff < 10) {
 				formattedTime = Math.round(minuteDiff) + " min";
+				//if estimated arrival is in under half a minute, display time left as now
 				if (Math.round(minuteDiff) <= 0) formattedTime = "Nå";
 			}
-			//info to set in data state
+			//info to set in data state for displaying in the list
 			return {
 				time: formattedTime,
 				display: item.destinationDisplay.frontText,
@@ -41,7 +42,7 @@ export default function RouteList({ service, routeID, limit }) {
 			}
 		}));
 	}
-	//this runs when the component loads
+	//this runs when the component loads (called in use effect hook )
 	//it gets the stopname of the selected stop by NSR ID
     const getStopName = async () => {
 		//fetches from entur api
@@ -89,7 +90,8 @@ export default function RouteList({ service, routeID, limit }) {
 				    </h3>
                     <p>{el.quay && `(Stopp ${el.quay})`}</p>
                 </div>
-			)})
+			)
+		})
 
 			
 	return (
