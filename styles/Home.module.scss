@@ -46,30 +46,6 @@
       }
 }
 
-@media only screen and (orientation: portrait) {
-    .mainPage {
-      flex-direction: column;
-      padding: 0;
-      height: 100%;
-    }
-    .timeTable {
-      margin: 0.5rem;
-      h2 {
-        font-size: 2rem;
-      }
-      h3 {
-        font-size: 2rem;
-      }
-    }
-    .time{
-        p {
-        font-size: 1rem;
-        transform: translateY(-10px);
-    
-        }
-    }
-  }
-
 
 .editCard{
   // main styling
@@ -95,7 +71,7 @@
   .options{
     height: 100%;
     display: grid;
-    grid-template-columns: 2fr 1fr  ;
+    grid-template-columns: 2fr 1fr;
 
     .option{
       background-color: #3131315d;
@@ -141,7 +117,7 @@
     width: 100%;
     background-color: rgba(0, 0, 0, 0.116);
     border-radius: 10px;
-    height: 40%;
+    max-height: 100%;
     padding: 30px;
     justify-content: center;
     align-items: center;
@@ -169,3 +145,50 @@
 .hidden{
   display: none;
 }
+
+@media only screen and (orientation: portrait) {
+  .mainPage {
+    flex-direction: column;
+    padding: 0;
+    height: 100%;
+  }
+  .timeTable {
+    margin: 0.5rem;
+    h2 {
+      font-size: 2rem;
+    }
+    h3 {
+      font-size: 2rem;
+    }
+  }
+  .time{
+      p {
+      font-size: 1rem;
+      transform: translateY(-10px);
+  
+      }
+  }
+  .editCard{
+    width: 100%;
+    margin: 10px;
+    padding: 10px;
+    overflow: visible;
+    .options{
+      grid-template-columns: 1fr;
+      .option{
+        margin: 10px;
+        flex-direction: column;
+      }
+    }
+    .selected{
+      margin-left: 0px;
+      margin-top: 20px;
+      height: 300px;
+    }
+    .autocomplete{
+      position: fixed;
+      width: 300px;
+    }
+  }
+
+}//end of portrait
