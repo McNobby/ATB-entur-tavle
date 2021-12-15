@@ -10,9 +10,11 @@ export default function Stops() {
 	const [stops, setStops] = useState([]);
 	const service = createEnturService({ clientName: 'chaIM-customtavle' });
 
+	// runs when router ready state changes
 	useEffect(()=>{
 
 		if (!router.isReady) return;
+		// loads stops from url
 		setStops(router.query.stops.split(";"));
 
 	}, [router.isReady]);
