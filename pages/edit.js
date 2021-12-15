@@ -3,7 +3,7 @@ import createEnturService from "@entur/sdk";
 import styles from "../styles/Home.module.scss";
 const service = createEnturService({ clientName: 'chaIM-customtavle' });
 
-const setStops = () => {
+const SetStops = () => {
     
     const [stopList, setStopList] = useState([])
     const [autoComplete, setAutoComplete] = useState([])
@@ -145,4 +145,4 @@ const setStops = () => {
     )
 }
 
-export default setStops
+export default SetStops
