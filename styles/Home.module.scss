@@ -79,6 +79,7 @@
       padding: 40px;
       margin: 30px;
       display: flex;
+      position: relative;
     }
   }
   .autocomplete{
@@ -141,6 +142,17 @@
   }
 }//end of .editCard
 
+.homeBtn{
+  background-color: #5acf7d;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 20px;
+  margin-right: 30px;
+  &:hover{
+    background-color:rgb(73, 170, 94);
+  }
+}
 
 .hidden{
   display: none;

@@ -92,11 +92,13 @@ export default function RouteList({ service, routeID, limit }) {
                 </div>
 			)
 		})
-
+	const edit = () => {
+		window.location.href = "/edit"
+	}
 			
 	return (
 		<div className={styles.timeTable}>
-            <h2>{stopName}</h2>
+            <h2 onClick={edit}>{stopName}</h2>
 			{timeList}
 		</div>
 	)

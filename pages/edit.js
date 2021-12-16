@@ -91,14 +91,12 @@ const SetStops = () => {
             }
             if(!stopList){
                 const newStopList = JSON.stringify([{id: selectedSearch.id, name: selectedSearch.label}])
-                console.log(newStopList);
                 localStorage.setItem("stops", newStopList)
                 setSelectedSearch([])
                 getStopList()
                 return
             }
             const newStopList = [...stopList, {id: selectedSearch.id, name: selectedSearch.label}]
-            console.log(newStopList);
             localStorage.setItem("stops", JSON.stringify(newStopList))
             getStopList()
             setSelectedSearch([])
@@ -113,6 +111,9 @@ const SetStops = () => {
         )
     }
 
+    const exit = () => {
+        window.location.href = "/"
+    }
     return (
         <div className={styles.mainPage}>
             <div className={styles.editCard}>
@@ -136,6 +137,7 @@ const SetStops = () => {
                         <div className={styles.wrap}>
                             <h1>Selected stops</h1>
                             {list}
+                            <button className={styles.homeBtn} onClick={exit} >Hjem</button>
                         </div>
                     
                     </div>
