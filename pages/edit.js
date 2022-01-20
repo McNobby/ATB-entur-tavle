@@ -1,9 +1,12 @@
 import {useState, useEffect} from 'react'
 import createEnturService from "@entur/sdk";
 import styles from "../styles/Home.module.scss";
+import { useRouter } from 'next/router';
 const service = createEnturService({ clientName: 'chaIM-customtavle' });
 
 const SetStops = () => {
+
+	const router = useRouter();
 	
 	const [stopList, setStopList] = useState([])
 	const [autoComplete, setAutoComplete] = useState([])
@@ -96,7 +99,7 @@ const SetStops = () => {
 	}
 
 	const exit = () => {
-		window.location.href = "/"
+		router.push("/");
 	}
 	return (
 		<div className={styles.mainPage}>

@@ -2,8 +2,11 @@ import styles from "../styles/Home.module.scss";
 import createEnturService from "@entur/sdk";
 import { useEffect, useState } from "react";
 import RouteList from "../components/RouteList";
+import { useRouter } from "next/router";
 
 export default function Home() {
+
+	const router = useRouter();
 
 	const [stops, setStops] = useState([])
 
@@ -11,16 +14,16 @@ export default function Home() {
 
 	useEffect(() => {
 		//if there is no saved stops in browser get user to define the stops
-		if(!localStorage.getItem("stops")) window.location.href = "/edit";
+		const stops = localStorage.getItem("stops")
+		if(!stops) router.push("/edit");
 
-		const stopsInBrowser = JSON.parse(localStorage.getItem("stops"))
-		setStops(stopsInBrowser)
+		setStops(JSON.parse(stops))
 	}, []);
 
 	//to find stopplace id visit: https://stoppested.entur.org/ 
 	return (
 		<div className={styles.mainPage}>
-			{stops.map(e => (
+			{stops && stops.map(e => (
 				<RouteList service={service} routeID={e.id} limit={10} key={e} />
 			))}
 		</div>

@@ -1,7 +1,10 @@
 import styles from "../styles/Home.module.scss";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 export default function RouteList({ service, routeID, limit }) {
+
+	const router = useRouter();
 
 	const [data, setData] = useState([]);
 	const [stopName, setStopName] = useState('');
@@ -89,7 +92,7 @@ export default function RouteList({ service, routeID, limit }) {
 			)
 		})
 	const edit = () => {
-		window.location.href = "/edit"
+		router.push("/edit");
 	}
 			
 	return (
