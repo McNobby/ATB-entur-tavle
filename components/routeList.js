@@ -22,6 +22,8 @@ export default function RouteList({ service, routeID, limit }) {
 
 		const data = list.map(item => {
 
+			const publicCode = item.serviceJourney.journeyPattern.line.publicCode;
+
 			// format time to hh:mm
 			const formattedTime = new Date(item.expectedArrivalTime).toLocaleTimeString(
 				navigator.language, {hour: '2-digit', minute:'2-digit'}
@@ -38,10 +40,11 @@ export default function RouteList({ service, routeID, limit }) {
 				//if estimated arrival is in under half a minute, display time left as now
 				if (Math.round(minuteDiff) <= 0) formattedTime = "Nå";
 			}
+
 			//info to set in data state for displaying in the list
 			return {
 				time: formattedTime,
-				display: item.destinationDisplay.frontText,
+				display: `${publicCode} ${item.destinationDisplay.frontText}`,
 				id: item.serviceJourney.id,
 				quay: item.quay.publicCode
 			}
@@ -50,7 +53,7 @@ export default function RouteList({ service, routeID, limit }) {
 		setTimeList(data.map(el => (
 			<div className={styles.time} key={el.id} style={textColor(el.time)} >
 				<h3 >
-					{el.time} - {el.display}
+					{el.time} – {el.display}
 				</h3>
 				<p>{el.quay && `(Stopp ${el.quay})`}</p>
 			</div>
