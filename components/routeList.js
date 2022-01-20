@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 export default function RouteList({ service, routeID, limit }) {
 
 	const [data, setData] = useState([]);
-    const [stopName, setStopName] = useState('');
-    
+	const [stopName, setStopName] = useState('');
+	
 	//this function runs every 5 seconds. Is called in the useEffect hook
 	//this function gets time tables for a selected stop by NSR ID
 	const setDepartures = async () => {
@@ -15,7 +15,7 @@ export default function RouteList({ service, routeID, limit }) {
 			{ limit }
 		);
 
-		setData(departures.map(item=>{
+		setData(departures.map(item => {
 
 			// format time to hh:mm
 			let formattedTime = new Date(item.expectedArrivalTime).toLocaleTimeString(
@@ -38,22 +38,22 @@ export default function RouteList({ service, routeID, limit }) {
 				time: formattedTime,
 				display: item.destinationDisplay.frontText,
 				id: item.serviceJourney.id,
-                quay: item.quay.publicCode
+				quay: item.quay.publicCode
 			}
 		}));
 	}
 	//this runs when the component loads (called in use effect hook )
 	//it gets the stopname of the selected stop by NSR ID
-    const getStopName = async () => {
+	const getStopName = async () => {
 		//fetches from entur api
-        const stopPlace = await service.nsr.getStopPlace(
-            routeID,
-        )
-        setStopName(stopPlace.name.value)
-    }
+		const stopPlace = await service.nsr.getStopPlace(
+			routeID,
+		)
+		setStopName(stopPlace.name.value)
+	}
 
 	useEffect(()=>{
-        getStopName();
+		getStopName();
 		setDepartures();
 		// update departures per 5 sec
 		let intervalId = setInterval(setDepartures, 5000);
@@ -63,33 +63,29 @@ export default function RouteList({ service, routeID, limit }) {
 	}, []);
 
 	//this function returns a css value making text yellow if its five minutes or less left to arrival
-    const textColor = (time) => {
+	const textColor = (time) => {
 		//if the time starts with nå(norwegian for now) the color should be yellow
-        if(time.startsWith('Nå')){
-            return(
-                {color:"#ebc354"}
-            )
-        }
+		if (time.startsWith('Nå')){
+			return {color:"#ebc354"}
+		}
 		//this is expected to be true if it says x min left and not just arrival time
-        if(time[2] !== 'm'){
-            return
-        }
+		if (time[2] !== 'm'){
+			return
+		}
 		//this checks if its five minutes or less left, indicating that the estimated arrival is soon
-        if(parseInt(time[0]) < 6){
-            return(
-                {color:"#ebc354"}
-            )
-        }
-    }
+		if (parseInt(time[0]) < 6){
+			return {color:"#ebc354"}
+		}
+	}
 
 	const timeList = data.map(el => {
 		return(
 				<div className={styles.time} key={el.id} style={textColor(el.time)} >
-				    <h3 >
-				    	{el.time} - {el.display}
-				    </h3>
-                    <p>{el.quay && `(Stopp ${el.quay})`}</p>
-                </div>
+					<h3 >
+						{el.time} - {el.display}
+					</h3>
+					<p>{el.quay && `(Stopp ${el.quay})`}</p>
+				</div>
 			)
 		})
 	const edit = () => {
@@ -98,7 +94,7 @@ export default function RouteList({ service, routeID, limit }) {
 			
 	return (
 		<div className={styles.timeTable}>
-            <h2 onClick={edit}>{stopName}</h2>
+			<h2 onClick={edit}>{stopName}</h2>
 			{timeList}
 		</div>
 	)
