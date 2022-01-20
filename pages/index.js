@@ -15,7 +15,7 @@ export default function Home() {
 	useEffect(() => {
 		//if there is no saved stops in browser get user to define the stops
 		const stops = localStorage.getItem("stops")
-		if(!stops) router.push("/edit");
+		if(!stops || stops === "[]") router.push("/edit");
 
 		setStops(JSON.parse(stops))
 	}, []);
