@@ -1,7 +1,7 @@
 import styles from "../styles/Home.module.scss";
 import createEnturService from "@entur/sdk";
 import { useEffect, useState } from "react";
-import RouteList from "../../components/RouteList";
+import RouteList from "../components/RouteList";
 import { useRouter } from "next/router";
 
 export default function Home() {
